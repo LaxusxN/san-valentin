@@ -1,29 +1,88 @@
 import { useState } from "react";
 
 const imagenes = [
-  "./image1.jpeg",
-  "./image2.jpeg",
-  "./image3.jpeg",
-  "./image4.jpeg",
-  "./image5.jpeg",
-  "./image6.jpeg",
-  "./image11.jpeg",
-  "./image9.jpeg",
+  {
+    image: "./image1.jpeg",
+    text: "Posando con el oso gigante, toma N°84",
+    letter: "T",
+  },
+  {
+    image: "./image2.jpeg",
+    text: "Recuerdos preciados en nuestras palmas ",
+    letter: "E",
+  },
+  {
+    image: "./image3.jpeg",
+    text: "Llevandola a un lugar especial, previas navidad",
+    letter: "Q",
+  },
+  {
+    image: "./image4.jpeg",
+    text: "Posando con gigantes arboles de navidad, faltaron los patitos rockeros",
+    letter: "U",
+  },
+  {
+    image: "./image5.jpeg",
+    text: "Preparando una sorpresa con mucho cariño y paciencia, me tomo algo de tiempo. Pero con amor todo se puede",
+    letter: "I",
+  },
+  {
+    image: "./image6.jpeg",
+    text: "Primera vez comiendo Wafles",
+    letter: "E",
+  },
+  {
+    image: "./image11.jpeg",
+    text: "Ella muy feliz con su sorpresa. Te adoro <3",
+    letter: "R",
+  },
+  {
+    image: "./image9.jpeg",
+    text: "En la playa, llendote a buscar y encontrarte despues de dos horas.",
+    letter: "O",
+  },
 ];
 
 const videos = ["video1.mp4", "video2.mp4"];
+const estiloTexto = {
+  color: "#fff", // Color del texto
+  textShadow:
+    "0 0 10px #00ff00, " + // Cambia el color aquí (#00ff00 es verde fosforescente)
+    "0 0 20px #00ff00, " +
+    "0 0 30px #00ff00, " +
+    "0 0 40px #00ff00, " +
+    "0 0 50px #00ff00, " +
+    "0 0 60px #00ff00, " +
+    "0 0 70px #00ff00", // Ajusta el desenfoque según lo necesites
+  textAlign: "center",
+};
 
 const Pictures = () => {
   return (
     <div className="flex flex-wrap gap-8">
       {imagenes.map((imagen, index) => (
-        <img
-          key={index}
-          src={imagen}
-          className="rounded-lg cursor-pointer
+        <div
+          className="relative cursor-pointer
+          hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out
+          "
+        >
+          <img
+            key={index}
+            src={imagen.image}
+            title={imagen.text}
+            className="rounded-lg cursor-pointer
           h-[250px] w-[200px]
-          hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
-        />
+            "
+          />
+          <div
+            class="opacity-0 hover:opacity-100 duration-300 absolute cursor-pointer
+            inset-0 z-10 flex justify-center items-center 
+            "
+            style={estiloTexto}
+          >
+            {imagen.text}
+          </div>
+        </div>
       ))}
     </div>
   );
@@ -54,7 +113,7 @@ function App() {
 
   return (
     <div
-      style={{ backgroundImage: `url(/image10.jpeg)` }}
+      style={{ backgroundImage: `url(./image10.jpeg) ` }}
       className={`h-screen font-bold text-[#5e4934] flex ${showImages || showVideos ? "flex-row" : "flex-col"} justify-center items-center`}
     >
       <div className="bg-[#fdf6e3] rounded-lg p-10 text-[#2c3e50]">
