@@ -213,7 +213,7 @@ ${showImages || showVideos ? "flex-row" : "flex-col"} justify-center items-cente
       >
         <p>Esto es para ti, mi niña bonita, espero te guste</p>
         <p>Lo hice con mucho amor para tí</p>
-        <p>Y seguirá mejorando y llenandosé de más recurdos juntos :3</p>
+        <p>Y seguirá mejorando y llenandosé de más recuerdos juntos :3</p>
         <div className="flex justify-center items-center gap-2">
           <p>Te adoro mi vida </p>
           <svg
