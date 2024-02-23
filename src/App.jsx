@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import hands from "./assets/hands.jpeg";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -88,12 +88,15 @@ const Pictures = () => {
             "
               style={estiloTexto}
             >
-              {imagen.text}
+              <div className="flex flex-col items-center">
+                <h1>{imagen.text}</h1>
+                <h1>{imagen.letter}</h1>
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="flex xl:hidden">
+      <div className="w-[150px] xl:w-auto flex xl:hidden">
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
@@ -112,14 +115,18 @@ const Pictures = () => {
         >
           {imagenes.map((imagen, index) => (
             <SwiperSlide>
-              <img
-                key={index}
-                src={imagen.image}
-                title={imagen.text}
-                className="rounded-lg cursor-pointer
+              <div className="  flex flex-col items-center" style={estiloTexto}>
+                <img
+                  key={index}
+                  src={imagen.image}
+                  title={imagen.text}
+                  className="rounded-lg cursor-pointer
           h-[180px] w-[150px]
             "
-              />
+                />
+                <p className="">{imagen.text}</p>
+                <h1>{imagen.letter}</h1>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -187,14 +194,23 @@ const VideosMemories = () => {
 function App() {
   const [showImages, setShowImages] = useState(false);
   const [showVideos, setShowVideos] = useState(false);
+  const [showContent, setShowContent] = useState(true);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowContent(false);
+    }, 5000); // Ocultar después de 5 segundos
+    return () => clearTimeout(timeout);
+  }, []); // Se ejecuta solo una vez al montar el componente
   return (
     <div
       style={{ backgroundImage: `url(${hands}) ` }}
-      className={`h-screen font-bold text-[#5e4934] flex px-4
+      className={`h-screen font-bold text-[#5e4934] flex px-16
 ${showImages || showVideos ? "flex-row" : "flex-col"} justify-center items-center`}
     >
-      <div className=" bg-[#fdf6e3] rounded-lg p-10 text-[#2c3e50] text-sm">
+      <div
+        className={`bg-[#fdf6e3] rounded-lg p-10 text-[#2c3e50] text-sm xl:block ${showContent ? "block" : " hidden"}`}
+      >
         <p>Esto es para ti, mi niña bonita, espero te guste</p>
         <p>Lo hice con mucho amor para tí</p>
         <p>Y seguirá mejorando y llenandosé de más recurdos juntos :3</p>
@@ -218,9 +234,11 @@ ${showImages || showVideos ? "flex-row" : "flex-col"} justify-center items-cente
       </div>
 
       <div
-        className=" m-10 p-10 max-w-[980px] min-h-4/6 text-[#1e293b]
+        className={`
+        m-10 p-10 max-w-[980px] min-h-4/6 text-[#1e293b]
         h-auto bg-[#fdf6e3] rounded-lg
-        flex flex-col items-center justify-start px-8"
+        flex flex-col items-center justify-start px-8
+${!showContent ? "block" : " hidden"}`}
       >
         <h1 className="flex justify-start w-full">Recuerdos: </h1>
         <button
