@@ -1,14 +1,21 @@
 import { useState } from "react";
+import hands from "./assets/hands.jpeg";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import { EffectCoverflow, Pagination } from "swiper/modules";
 
 const imagenes = [
   {
     image: "./image1.jpeg",
-    text: "Posando con el oso gigante, toma N°84",
+    text: "Posando. Toma N°84",
     letter: "T",
   },
   {
     image: "./image2.jpeg",
-    text: "Recuerdos preciados en nuestras palmas ",
+    text: "Recuerdos preciados en la palma de nuestras manos ",
     letter: "E",
   },
   {
@@ -27,98 +34,170 @@ const imagenes = [
     letter: "I",
   },
   {
-    image: "./image6.jpeg",
-    text: "Primera vez comiendo Wafles",
-    letter: "E",
-  },
-  {
     image: "./image11.jpeg",
     text: "Ella muy feliz con su sorpresa. Te adoro <3",
     letter: "R",
   },
   {
+    image: "./image6.jpeg",
+    text: "Primera vez comiendo Wafles",
+    letter: "E",
+  },
+  {
     image: "./image9.jpeg",
-    text: "En la playa, llendote a buscar y encontrarte despues de dos horas.",
+    text: "En la playa, llendote a buscar y encontrarte despues de horas.",
     letter: "O",
   },
 ];
 
 const videos = ["video1.mp4", "video2.mp4"];
 const estiloTexto = {
-  color: "#fff", // Color del texto
+  color: "#fff",
   textShadow:
-    "0 0 10px #00ff00, " + // Cambia el color aquí (#00ff00 es verde fosforescente)
+    "0 0 10px #00ff00, " +
     "0 0 20px #00ff00, " +
     "0 0 30px #00ff00, " +
     "0 0 40px #00ff00, " +
     "0 0 50px #00ff00, " +
     "0 0 60px #00ff00, " +
-    "0 0 70px #00ff00", // Ajusta el desenfoque según lo necesites
+    "0 0 70px #00ff00",
   textAlign: "center",
 };
 
 const Pictures = () => {
   return (
-    <div className="flex flex-wrap gap-8">
-      {imagenes.map((imagen, index) => (
-        <div
-          className="relative cursor-pointer
+    <div>
+      <div className="hidden  xl:flex xl:flex-wrap gap-8 ">
+        {imagenes.map((imagen, index) => (
+          <div
+            className="relative cursor-pointer
           hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out
           "
-        >
-          <img
-            key={index}
-            src={imagen.image}
-            title={imagen.text}
-            className="rounded-lg cursor-pointer
+          >
+            <img
+              key={index}
+              src={imagen.image}
+              title={imagen.text}
+              className="rounded-lg cursor-pointer
           h-[250px] w-[200px]
             "
-          />
-          <div
-            class="opacity-0 hover:opacity-100 duration-300 absolute cursor-pointer
+            />
+            <div
+              class="opacity-0 hover:opacity-100 duration-300 absolute cursor-pointer
             inset-0 z-10 flex justify-center items-center 
             "
-            style={estiloTexto}
-          >
-            {imagen.text}
+              style={estiloTexto}
+            >
+              {imagen.text}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <div className="flex xl:hidden">
+        <Swiper
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow, Pagination]}
+          className="mySwiper"
+        >
+          {imagenes.map((imagen, index) => (
+            <SwiperSlide>
+              <img
+                key={index}
+                src={imagen.image}
+                title={imagen.text}
+                className="rounded-lg cursor-pointer
+          h-[180px] w-[150px]
+            "
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };
 
 const VideosMemories = () => {
   return (
-    <div className="flex flex-wrap gap-8 ">
-      {videos.map((video, index) => (
-        <video
-          key={index}
-          width={300}
-          height={300}
-          controls
-          className="rounded-lg cursor-pointer
+    <div>
+      <div className="hidden xl:flex xl:flex-wrap gap-8 ">
+        {videos.map((video, index) => (
+          <video
+            key={index}
+            width={300}
+            height={300}
+            controls
+            className="rounded-lg cursor-pointer
           hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
+          >
+            <source src={video} type="video/mp4" />
+            Tu navegador no soporta el elemento de video.
+          </video>
+        ))}
+      </div>
+      <div className="flex xl:hidden">
+        <Swiper
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow, Pagination]}
+          className="mySwiper"
         >
-          <source src={video} type="video/mp4" />
-          Tu navegador no soporta el elemento de video.
-        </video>
-      ))}
+          {videos.map((video, index) => (
+            <SwiperSlide>
+              <video
+                key={index}
+                width={300}
+                height={300}
+                controls
+                className="rounded-lg cursor-pointer
+          hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
+              >
+                <source src={video} type="video/mp4" />
+                Tu navegador no soporta el elemento de video.
+              </video>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };
+
 function App() {
   const [showImages, setShowImages] = useState(false);
   const [showVideos, setShowVideos] = useState(false);
 
   return (
     <div
-      style={{ backgroundImage: `url(./image10.jpeg) ` }}
-      className={`h-screen font-bold text-[#5e4934] flex ${showImages || showVideos ? "flex-row" : "flex-col"} justify-center items-center`}
+      style={{ backgroundImage: `url(${hands}) ` }}
+      className={`h-screen font-bold text-[#5e4934] flex px-4
+${showImages || showVideos ? "flex-row" : "flex-col"} justify-center items-center`}
     >
-      <div className="bg-[#fdf6e3] rounded-lg p-10 text-[#2c3e50]">
-        <p>Esto es para ti, mi niña bonita, feliz día de San Valentin</p>
-        <p>Esto es solo el inicio, vendrán muchas momentos más</p>
+      <div className=" bg-[#fdf6e3] rounded-lg p-10 text-[#2c3e50] text-sm">
+        <p>Esto es para ti, mi niña bonita, espero te guste</p>
+        <p>Lo hice con mucho amor para tí</p>
+        <p>Y seguirá mejorando y llenandosé de más recurdos juntos :3</p>
         <div className="flex justify-center items-center gap-2">
           <p>Te adoro mi vida </p>
           <svg
